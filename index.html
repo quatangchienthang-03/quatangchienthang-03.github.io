@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sản Xuất Kỷ Niệm Chương, Bảng Vinh Danh, Huy Chương & Bảng Tên Cao Cấp</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800&family=Montserrat:wght@500;600;700;800&display=swap" rel="stylesheet">
@@ -14,6 +15,7 @@
             --primary-color: #0d233a;
             --accent-gold: #d4af37;
             --accent-gold-light: #fbf5b7;
+            /* Dải màu Gold đậm đà hơn, loại bỏ các điểm màu quá sáng bị chìm */
             --gold-gradient: linear-gradient(135deg, #bf953f 0%, #d4af37 40%, #b38728 70%, #aa771c 100%);
             --bg-light: #f4f6f8;
             --text-dark: #1e293b;
@@ -43,7 +45,7 @@
 
         /* Top Bar & Header */
         .header {
-            background-color: #f1f5f9;
+            background-color: #f1f5f9; /* Đổi sang nền trắng xám hiện đại */
             box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
             position: sticky;
             top: 0;
@@ -71,6 +73,7 @@
             margin-right: 6px;
         }
 
+        /* CSS Mạng xã hội cho Topbar & Footer */
         .social-links {
             display: flex;
             gap: 12px;
@@ -116,6 +119,7 @@
             width: auto;
             object-fit: contain;
             vertical-align: middle;
+            /* Thêm bóng nhẹ giúp logo kim loại nổi bật hơn */
             filter: drop-shadow(0px 1px 2px rgba(9, 24, 41, 0.2));
         }
 
@@ -124,6 +128,7 @@
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             font-weight: 800;
+            /* Thêm bóng mờ rất nhẹ để tăng độ sắc nét trên nền sáng */
             filter: drop-shadow(0px 1px 1px rgba(0, 0, 0, 0.12));
         }
 
@@ -270,6 +275,7 @@
             gap: 25px;
         }
 
+        /* Top Category Navigation (Đưa Danh Mục lên nằm Ngang) */
         .category-nav-top {
             background: var(--white);
             padding: 15px 20px;
@@ -347,7 +353,15 @@
             font-size: 0.95rem;
         }
 
-        /* Product Grid */
+        /* Custom Class Icon Zalo */
+        .zalo-text-icon {
+            font-weight: 900;
+            font-style: normal;
+            font-size: 0.9em;
+            letter-spacing: -0.5px;
+        }
+
+        /* Product Grid (Hiển thị 4 cột trên Desktop cho rộng đẹp) */
         .product-grid {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
@@ -701,7 +715,7 @@
             font-size: 0.88rem;
         }
 
-        /* Floating Contact Buttons */
+        /* Floating Contact Buttons & MXH */
         .floating-widget {
             position: fixed;
             bottom: 25px;
@@ -785,7 +799,7 @@
             color: #64748b;
         }
 
-        /* RESPONSIVE DESIGN */
+        /* RESPONSIVE DESIGN (MOBILE & TABLET) */
         @media (max-width: 1024px) {
             .product-grid {
                 grid-template-columns: repeat(3, 1fr);
@@ -911,6 +925,7 @@
 </head>
 <body>
 
+    <!-- Header & Navigation -->
     <header class="header">
         <div class="top-bar">
             <div class="top-bar-info">
@@ -919,6 +934,7 @@
             </div>
             <div style="display: flex; gap: 20px; align-items: center;">
                 <span><i class="fa-solid fa-clock"></i> 8:00 - 17:00 (T2 - T7)</span>
+                <!-- Icon Mạng Xã Hội trên Top Bar -->
                 <div class="social-links">
                     <a href="LINK_FACEBOOK_CUA_BAN" target="_blank" title="Facebook"><i class="fa-brands fa-facebook"></i></a>
                     <a href="LINK_INSTAGRAM_CUA_BAN" target="_blank" title="Instagram"><i class="fa-brands fa-instagram"></i></a>
@@ -942,6 +958,7 @@
         </div>
     </header>
 
+    <!-- Hero Banner -->
     <section class="hero">
         <div class="hero-badge"><i class="fa-solid fa-shield-halved"></i> Chế Tác Trực Tiếp - Giá Tại Xưởng</div>
         <h1>SẢN XUẤT KỶ NIỆM CHƯƠNG, BẢNG VINH DANH & HUY CHƯƠNG CAO CẤP</h1>
@@ -949,10 +966,12 @@
         <a href="#products" class="cta-btn"><i class="fa-solid fa-eye"></i> XEM MẪU SẢN PHẨM</a>
     </section>
 
+    <!-- Main Shop Section -->
     <main class="main-container" id="products">
         <h2 class="section-title">DANH MỤC SẢN PHẨM</h2>
 
         <div class="shop-layout">
+            <!-- Cụm Danh Mục nằm Ngang phía trên Sản Phẩm -->
             <div class="category-nav-top">
                 <ul class="sidebar-cats">
                     <li class="active" onclick="filterCategory('all', event)"><i class="fa-solid fa-border-all"></i> Tất Cả Sản Phẩm</li>
@@ -962,11 +981,13 @@
                 </ul>
             </div>
 
+            <!-- Khung Hiển Thị Sản Phẩm -->
             <div class="shop-content">
                 <div class="product-grid" id="productGrid"></div>
             </div>
         </div>
 
+        <!-- Khối Báo Giá Nhanh -->
         <div class="promo-box-bottom">
             <i class="fa-solid fa-headset promo-icon"></i>
             <h4>Cần Báo Giá Nhanh?</h4>
@@ -977,6 +998,7 @@
         </div>
     </main>
 
+    <!-- Order Process Section -->
     <section class="process-section" id="process">
         <div class="main-container">
             <h2 class="section-title">QUY TRÌNH ĐẶT HÀNG ĐƠN GIẢN</h2>
@@ -1005,6 +1027,7 @@
         </div>
     </section>
 
+    <!-- Features Section -->
     <section class="features" id="about">
         <div class="features-grid">
             <div class="feature-item">
@@ -1030,6 +1053,7 @@
         </div>
     </section>
 
+    <!-- Stats Section -->
     <section class="stats-section">
         <div class="stats-container">
             <div class="stat-item">
@@ -1051,6 +1075,7 @@
         </div>
     </section>
 
+    <!-- Modal Xem Chi Tiết -->
     <div class="modal-overlay" id="productModal">
         <div class="modal-content">
             <button class="modal-close" onclick="closeModal()"><i class="fa-solid fa-xmark"></i></button>
@@ -1066,6 +1091,7 @@
         </div>
     </div>
 
+    <!-- Floating Contact Buttons & MXH -->
     <div class="floating-widget">
         <a href="https://www.facebook.com/profile.php?id=61592076195170" target="_blank" class="widget-btn facebook-widget" title="Facebook">
             <i class="fa-brands fa-facebook-f"></i>
@@ -1084,11 +1110,13 @@
         </a>
     </div>
 
+    <!-- Footer -->
     <footer class="footer" id="contact">
         <div class="footer-content">
             <div class="footer-col">
                 <h4>QUÀ TẶNG CHIẾN THẮNG</h4>
                 <p>Chuyên chế tác kỷ niệm chương, bảng vinh danh, bảng tên nhân viên, huy chương sự kiện.</p>
+                <!-- Icon MXH ở Footer -->
                 <div class="social-links" style="margin-top: 15px; font-size: 1.2rem;">
                     <a href="https://www.facebook.com/profile.php?id=61592076195170" target="_blank" title="Facebook"><i class="fa-brands fa-facebook"></i></a>
                     <a href="https://www.instagram.com/quatangchienthang?igsi=MTU0Nmp6djRmNGYwNw%3D%3D&utm_source=qr" target="_blank" title="Instagram"><i class="fa-brands fa-instagram"></i></a>
@@ -1114,6 +1142,7 @@
         </div>
     </footer>
 
+    <!-- JavaScript Data & Logic -->
     <script>
         const products = [
             {
@@ -1159,6 +1188,71 @@
                 ]
             },
             {
+                stt: 9,
+                id: 9,
+                category: 'kyniemchuong',
+                name: 'Cup Pha Lê Khối Cầu',
+                price: 'Liên hệ Hotline',
+                desc: 'Cup Pha Lê chế tác sang trọng, in ấn sắc nét theo yêu cầu.',
+                img: 'images/pha le cau.jpg',
+                specs: [
+                    'Chất liệu: Pha lê cao cấp',
+                    'Công nghệ: Khắc Laser / In UV sắc nét'
+                ]
+            },
+            {
+                stt: 10,
+                id: 10,
+                category: 'kyniemchuong',
+                name: 'Cup Pha Lê Nguyên Khối',
+                price: 'Liên hệ Hotline',
+                desc: 'Cup Pha Lê chế tác sang trọng, in ấn sắc nét theo yêu cầu.',
+                img: 'images/pha le khoi 1.jpg',
+                specs: [
+                    'Chất liệu: Pha lê cao cấp',
+                    'Công nghệ: Khắc Laser / In UV sắc nét'
+                ]
+            },
+            {
+                stt: 11,
+                id: 11,
+                category: 'bangvinhdanh',
+                name: 'Bảng Vinh Danh Gỗ Đồng',
+                price: 'Liên hệ Hotline',
+                desc: 'Bảng vinh danh gỗ đồng sang trọng và cao cấp.',
+                img: 'images/bang vinh danh 1.jpg',
+                specs: [
+                    'Chất liệu: Gỗ + Đồng',
+                    'Công nghệ: In UV cao cấp'
+                ]
+            },
+            {
+                stt: 13,
+                id: 13,
+                category: 'huychuong/bangten',
+                name: 'Bảng Tên Cài Áo',
+                price: 'Liên hệ Hotline',
+                desc: 'Bảng tên thiết kế tinh tế, chất liệu bền đẹp.',
+                img: 'images/bang ten.jpg',
+                specs: [
+                    'Chất liệu: Kim loại',
+                    'Công nghệ: In UV sắc nét'
+                ]
+            },
+            {
+                stt: 14,
+                id: 14,
+                category: 'huychuong/bangten',
+                name: 'Huy Chương',
+                price: 'Liên hệ Hotline',
+                desc: 'Huy chương thiết kế tinh tế, cá nhân hóa.',
+                img: 'images/huy chuong 1.jpg',
+                specs: [
+                    'Chất liệu: Kim loại cao cấp',
+                    'Công nghệ: In UV / Đúc khuôn'
+                ]
+            },
+            {
                 stt: 4,
                 id: 4,
                 category: 'kyniemchuong',
@@ -1173,6 +1267,19 @@
                 ]
             },
             {
+                stt: 12,
+                id: 12,
+                category: 'bangvinhdanh',
+                name: 'Bảng Vinh Danh Gỗ Pha Lê',
+                price: 'Liên hệ Hotline',
+                desc: 'Bảng vinh danh gỗ pha lê sang trọng và cao cấp.',
+                img: 'images/bang vinh danh 2.jpg',
+                specs: [
+                    'Chất liệu: Gỗ + Pha lê',
+                    'Công nghệ: In UV cao cấp'
+                ]
+            },
+{
                 stt: 5,
                 id: 5,
                 category: 'kyniemchuong',
@@ -1186,7 +1293,7 @@
                     'Công nghệ: In UV / Khắc Laser'
                 ]
             },
-            {
+{
                 stt: 6,
                 id: 6,
                 category: 'kyniemchuong',
@@ -1200,9 +1307,9 @@
                     'Công nghệ: In UV / Khắc Laser'
                 ]
             },
-            {
-                stt: 43,
-                id: 43,
+{
+                stt: 7,
+                id: 7,
                 category: 'kyniemchuong',
                 name: 'Kỷ Niệm Chương Tròn Gỗ',
                 price: '130.000đ - 710.000đ',
@@ -1214,9 +1321,9 @@
                     'Công nghệ: In UV / Khắc Laser'
                 ]
             },
-            {
-                stt: 44,
-                id: 44,
+{
+                stt: 8,
+                id: 8,
                 category: 'kyniemchuong',
                 name: 'Cup Lưỡi Rắn',
                 price: '130.000đ - 710.000đ',
@@ -1228,91 +1335,16 @@
                     'Công nghệ: In UV / Khắc Laser'
                 ]
             },
-            {
-                stt: 45,
-                id: 45,
-                category: 'kyniemchuong',
-                name: 'Cup Pha Lê Khối Cầu',
-                price: 'Liên hệ Hotline',
-                desc: 'Cup Pha Lê chế tác sang trọng, in ấn sắc nét theo yêu cầu.',
-                img: 'images/pha le cau.jpg',
-                specs: [
-                    'Chất liệu: Pha lê cao cấp',
-                    'Công nghệ: Khắc Laser / In UV sắc nét'
-                ]
-            },
-            {
-                stt: 46,
-                id: 46,
-                category: 'kyniemchuong',
-                name: 'Cup Pha Lê Nguyên Khối',
-                price: 'Liên hệ Hotline',
-                desc: 'Cup Pha Lê chế tác sang trọng, in ấn sắc nét theo yêu cầu.',
-                img: 'images/pha le khoi 1.jpg',
-                specs: [
-                    'Chất liệu: Pha lê cao cấp',
-                    'Công nghệ: Khắc Laser / In UV sắc nét'
-                ]
-            },
-            {
-                stt: 47,
-                id: 47,
-                category: 'bangvinhdanh',
-                name: 'Bảng Vinh Danh Gỗ Đồng',
-                price: 'Liên hệ Hotline',
-                desc: 'Bảng vinh danh gỗ đồng sang trọng và cao cấp.',
-                img: 'images/bang vinh danh 1.jpg',
-                specs: [
-                    'Chất liệu: Gỗ + Đồng',
-                    'Công nghệ: In UV cao cấp'
-                ]
-            },
-            {
-                stt: 48,
-                id: 48,
-                category: 'bangvinhdanh',
-                name: 'Bảng Vinh Danh Gỗ Pha Lê',
-                price: 'Liên hệ Hotline',
-                desc: 'Bảng vinh danh gỗ pha lê sang trọng và cao cấp.',
-                img: 'images/bang vinh danh 2.jpg',
-                specs: [
-                    'Chất liệu: Gỗ + Pha lê',
-                    'Công nghệ: In UV cao cấp'
-                ]
-            },
-            {
-                stt: 49,
-                id: 49,
-                category: 'huychuong/bangten',
-                name: 'Bảng Tên Cài Áo',
-                price: 'Liên hệ Hotline',
-                desc: 'Bảng tên thiết kế tinh tế, chất liệu bền đẹp.',
-                img: 'images/bang ten.jpg',
-                specs: [
-                    'Chất liệu: Kim loại',
-                    'Công nghệ: In UV sắc nét'
-                ]
-            },
-            {
-                stt: 50,
-                id: 50,
-                category: 'huychuong/bangten',
-                name: 'Huy Chương',
-                price: 'Liên hệ Hotline',
-                desc: 'Huy chương thiết kế tinh tế, cá nhân hóa.',
-                img: 'images/huy chuong 1.jpg',
-                specs: [
-                    'Chất liệu: Kim loại cao cấp',
-                    'Công nghệ: In UV / Đúc khuôn'
-                ]
-            }
         ];
 
         function renderProducts(items) {
             const grid = document.getElementById('productGrid');
             grid.innerHTML = '';
+            
+            // Sắp xếp các sản phẩm theo số thứ tự (stt) tăng dần
+            const sortedItems = [...items].sort((a, b) => a.stt - b.stt);
 
-            items.forEach(product => {
+            sortedItems.forEach(product => {
                 const tagNames = {
                     'kyniemchuong': 'Kỷ Niệm Chương',
                     'bangvinhdanh': 'Bảng Vinh Danh',
