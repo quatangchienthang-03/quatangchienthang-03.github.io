@@ -1,3 +1,4 @@
+HTML
 <!DOCTYPE html>
 <html lang="vi">
 <head>
@@ -43,9 +44,129 @@
             -webkit-font-smoothing: antialiased;
         }
 
+        /* --- HIỆU ỨNG MỞ CÁNH CỬA (DOOR OPENING INTRO - CẢI TIẾN) --- */
+        #door-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: 99999;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            background-color: #050e17;
+        }
+
+        .door {
+            position: absolute;
+            top: 0;
+            width: 50.5%;
+            height: 100%;
+            /* Họa tiết dệt kim cương chìm kết hợp ánh sáng tỏa từ tâm */
+            background: 
+                radial-gradient(circle at center, rgba(13, 35, 58, 0.8) 0%, rgba(5, 14, 23, 0.98) 100%),
+                repeating-linear-gradient(45deg, rgba(212, 175, 55, 0.03) 0, rgba(212, 175, 55, 0.03) 1px, transparent 0, transparent 50px);
+            transition: transform 1.2s cubic-bezier(0.77, 0, 0.175, 1);
+            z-index: 1;
+            box-shadow: inset 0 0 120px rgba(0, 0, 0, 0.95);
+        }
+
+        .door-left {
+            left: 0;
+            border-right: 1px solid rgba(212, 175, 55, 0.2);
+        }
+
+        .door-right {
+            right: 0;
+            border-left: 1px solid rgba(212, 175, 55, 0.2);
+        }
+
+        /* Khung Card thông điệp vinh danh cao cấp */
+        .welcome-content {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+            color: var(--white);
+            padding: 40px 30px;
+            max-width: 520px;
+            width: 90%;
+            background: rgba(9, 24, 41, 0.85);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(212, 175, 55, 0.5);
+            border-radius: 16px;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6), 0 0 30px rgba(212, 175, 55, 0.15);
+            transition: opacity 0.5s ease, transform 0.5s ease;
+        }
+
+        .welcome-badge-icon {
+            font-size: 2.2rem;
+            color: var(--accent-gold);
+            margin-bottom: 12px;
+            filter: drop-shadow(0 2px 8px rgba(212, 175, 55, 0.5));
+        }
+
+        .welcome-content h2 {
+            font-family: 'Cinzel', serif;
+            font-size: 2.2rem;
+            background: var(--gold-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 12px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            font-weight: 700;
+        }
+
+        .welcome-content p {
+            font-size: 0.95rem;
+            margin-bottom: 28px;
+            color: #cbd5e1;
+            line-height: 1.5;
+        }
+
+        .btn-open-door {
+            background: var(--gold-gradient);
+            color: var(--primary-dark);
+            border: none;
+            padding: 14px 38px;
+            font-size: 0.95rem;
+            font-weight: 800;
+            border-radius: 30px;
+            cursor: pointer;
+            box-shadow: 0 4px 20px rgba(212, 175, 55, 0.4);
+            transition: var(--transition);
+            letter-spacing: 1px;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .btn-open-door:hover {
+            transform: translateY(-2px) scale(1.05);
+            box-shadow: 0 8px 30px rgba(212, 175, 55, 0.7);
+        }
+
+        /* Animation Trigger Classes */
+        #door-overlay.open .door-left {
+            transform: translateX(-100%);
+        }
+
+        #door-overlay.open .door-right {
+            transform: translateX(100%);
+        }
+
+        #door-overlay.open .welcome-content {
+            opacity: 0;
+            transform: scale(0.9);
+            pointer-events: none;
+        }
+
         /* Top Bar & Header */
         .header {
-            background-color: #f1f5f9; /* Đổi sang nền trắng xám hiện đại */
+            background-color: #f1f5f9;
             box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
             position: sticky;
             top: 0;
@@ -119,7 +240,6 @@
             width: auto;
             object-fit: contain;
             vertical-align: middle;
-            /* Thêm bóng nhẹ giúp logo kim loại nổi bật hơn */
             filter: drop-shadow(0px 1px 2px rgba(9, 24, 41, 0.2));
         }
 
@@ -128,7 +248,6 @@
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             font-weight: 800;
-            /* Thêm bóng mờ rất nhẹ để tăng độ sắc nét trên nền sáng */
             filter: drop-shadow(0px 1px 1px rgba(0, 0, 0, 0.12));
         }
 
@@ -275,7 +394,7 @@
             gap: 25px;
         }
 
-        /* Top Category Navigation (Đưa Danh Mục lên nằm Ngang) */
+        /* Top Category Navigation */
         .category-nav-top {
             background: var(--white);
             padding: 15px 20px;
@@ -353,15 +472,7 @@
             font-size: 0.95rem;
         }
 
-        /* Custom Class Icon Zalo */
-        .zalo-text-icon {
-            font-weight: 900;
-            font-style: normal;
-            font-size: 0.9em;
-            letter-spacing: -0.5px;
-        }
-
-        /* Product Grid (Hiển thị 4 cột trên Desktop cho rộng đẹp) */
+        /* Product Grid */
         .product-grid {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
@@ -680,9 +791,10 @@
         }
 
         .modal-img {
-            height: auto;
-            max-height: 280px;
-            object-fit: contain;
+            width: 100%;
+            height: 100%;
+            max-height: 320px;
+            object-fit: cover;
             background-color: #0d233a;
         }
 
@@ -807,6 +919,21 @@
         }
 
         @media (max-width: 768px) {
+            .welcome-content {
+                padding: 30px 20px;
+            }
+            .welcome-content h2 {
+                font-size: 1.5rem;
+            }
+            .welcome-content p {
+                font-size: 0.85rem;
+                margin-bottom: 20px;
+            }
+            .btn-open-door {
+                padding: 12px 28px;
+                font-size: 0.88rem;
+            }
+
             .top-bar {
                 flex-direction: column;
                 gap: 6px;
@@ -925,6 +1052,22 @@
 </head>
 <body>
 
+    <!-- OVERLAY HIỆU ỨNG MỞ CÁNH CỬA (CẢI TIẾN IMPRESSIVE INTRO) -->
+    <div id="door-overlay">
+        <div class="door door-left"></div>
+        <div class="door door-right"></div>
+        <div class="welcome-content">
+            <div class="welcome-badge-icon">
+                <i class="fa-solid fa-crown"></i>
+            </div>
+            <h2>Quà Tặng Chiến Thắng</h2>
+            <p>Chào mừng quý khách đến với thế giới quà tặng & vinh danh cao cấp</p>
+            <button class="btn-open-door" onclick="openDoor()">
+                <i class="fa-solid fa-door-open"></i> KHÁM PHÁ NGAY
+            </button>
+        </div>
+    </div>
+
     <!-- Header & Navigation -->
     <header class="header">
         <div class="top-bar">
@@ -936,9 +1079,9 @@
                 <span><i class="fa-solid fa-clock"></i> 8:00 - 17:00 (T2 - T7)</span>
                 <!-- Icon Mạng Xã Hội trên Top Bar -->
                 <div class="social-links">
-                    <a href="LINK_FACEBOOK_CUA_BAN" target="_blank" title="Facebook"><i class="fa-brands fa-facebook"></i></a>
-                    <a href="LINK_INSTAGRAM_CUA_BAN" target="_blank" title="Instagram"><i class="fa-brands fa-instagram"></i></a>
-                    <a href="LINK_TIKTOK_CUA_BAN" target="_blank" title="TikTok"><i class="fa-brands fa-tiktok"></i></a>
+                    <a href="https://www.facebook.com/profile.php?id=61592076195170" target="_blank" title="Facebook"><i class="fa-brands fa-facebook"></i></a>
+                    <a href="https://www.instagram.com/quatangchienthang?igsi=MTU0Nmp6djRmNGYwNw%3D%3D&utm_source=qr" target="_blank" title="Instagram"><i class="fa-brands fa-instagram"></i></a>
+                    <a href="https://www.tiktok.com/@quatangchienthang?_r=1&_t=ZS-99BPXxRKSby" target="_blank" title="TikTok"><i class="fa-brands fa-tiktok"></i></a>
                 </div>
             </div>
         </div>
@@ -1131,10 +1274,12 @@
             </div>
             <div class="footer-col">
                 <h4>DANH MỤC</h4>
-                <li>• Kỷ niệm chương Pha Lê / Thủy Tinh</li>
-                <li>• Bảng tên các loại</li>
-                <li>• Bảng vinh danh</li>
-                <li>• Huy chương thể thao</li>
+                <ul>
+                    <li>• Kỷ niệm chương Pha Lê / Thủy Tinh</li>
+                    <li>• Bảng tên các loại</li>
+                    <li>• Bảng vinh danh</li>
+                    <li>• Huy chương thể thao</li>
+                </ul>
             </div>
         </div>
         <div class="footer-bottom">
@@ -1144,6 +1289,28 @@
 
     <!-- JavaScript Data & Logic -->
     <script>
+        // XỬ LÝ HIỆU ỨNG MỞ CỬA
+        function openDoor() {
+            const overlay = document.getElementById('door-overlay');
+            if (overlay) {
+                overlay.classList.add('open');
+                sessionStorage.setItem('doorOpened', 'true');
+                setTimeout(() => {
+                    overlay.style.display = 'none';
+                }, 1200);
+            }
+        }
+
+        // Tự động kiểm tra trạng thái mở cửa nếu khách đã xem trước đó
+        document.addEventListener("DOMContentLoaded", () => {
+            if (sessionStorage.getItem('doorOpened') === 'true') {
+                const overlay = document.getElementById('door-overlay');
+                if (overlay) {
+                    overlay.style.display = 'none';
+                }
+            }
+        });
+
         const products = [
             {
                 stt: 1,
@@ -1383,7 +1550,6 @@
             const grid = document.getElementById('productGrid');
             grid.innerHTML = '';
             
-            // Sắp xếp các sản phẩm theo số thứ tự (stt) tăng dần
             const sortedItems = [...items].sort((a, b) => a.stt - b.stt);
 
             sortedItems.forEach(product => {
@@ -1456,6 +1622,14 @@
         function closeModal() {
             document.getElementById('productModal').classList.remove('active');
         }
+
+        // Đóng modal khi bấm ra ngoài nội dung modal
+        window.onclick = function(event) {
+            const modal = document.getElementById('productModal');
+            if (event.target === modal) {
+                closeModal();
+            }
+        };
 
         window.onload = () => {
             renderProducts(products);
