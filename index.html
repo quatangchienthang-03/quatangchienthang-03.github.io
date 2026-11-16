@@ -237,9 +237,18 @@
             transform: translateY(-2px);
         }
 
-        .nav-container {
-            max-width: 1350px;
+        /* Mở rộng khung chứa chính lên 1620px để tránh khoảng trống lớn 2 bên */
+        .nav-container, 
+        .main-container, 
+        .features-grid, 
+        .stats-container, 
+        .footer-content {
+            max-width: 1620px;
+            width: 94%;
             margin: 0 auto;
+        }
+
+        .nav-container {
             padding: 12px 20px;
             display: flex;
             justify-content: space-between;
@@ -322,94 +331,61 @@
             color: #b38728;
         }
 
-        /* --- HERO BANNER VỚI HIỆU ỨNG NỀN CHUYỂN ĐỘNG NHƯ GIF ĐỘNG --- */
+        /* --- HERO BANNER VỚI HOẠT ẢNH CHIBI CẦM CÚP CHẠY PHÍA SAU NỘI DUNG --- */
         .hero {
             background-color: #061322;
             color: var(--white);
             text-align: center;
-            padding: 80px 20px;
+            padding: 112px 20px 128px;
             position: relative;
             overflow: hidden;
             border-bottom: 3px solid transparent;
             border-image: var(--gold-gradient) 1;
         }
 
-        /* Lớp 1: Ảnh nền xanh navy tự động bồng bềnh & phóng to thu nhỏ mượt mà */
+        /* Phông nền xanh navy sang trọng kết hợp ảnh nền mờ phía sau */
         .hero-bg-layer {
             position: absolute;
-            inset: -12%;
+            inset: 0;
             background: 
-                radial-gradient(circle at 30% 40%, rgba(25, 78, 132, 0.45) 0%, transparent 55%),
-                radial-gradient(circle at 75% 65%, rgba(212, 175, 55, 0.16) 0%, transparent 50%),
-                radial-gradient(circle at center, rgba(13, 35, 58, 0.25) 0%, rgba(6, 17, 30, 0.95) 100%),
+                radial-gradient(circle at 50% 45%, rgba(22, 65, 112, 0.55) 0%, rgba(7, 19, 34, 0.96) 75%),
                 url('images/anh nen.jpg') center/cover no-repeat;
-            animation: heroBgFloat 14s ease-in-out infinite alternate;
+            opacity: 0.95;
             z-index: 0;
             pointer-events: none;
         }
 
-        /* Lớp 2: Dải ánh kim xanh – vàng quét ngang liên tục */
-        .hero-wave-layer {
-            position: absolute;
-            inset: 0;
-            background: linear-gradient(
-                115deg,
-                transparent 20%,
-                rgba(45, 125, 205, 0.14) 45%,
-                rgba(212, 175, 55, 0.12) 50%,
-                rgba(45, 125, 205, 0.14) 55%,
-                transparent 80%
-            );
-            background-size: 250% 250%;
-            animation: heroShimmerSweep 8s ease-in-out infinite;
-            z-index: 1;
-            pointer-events: none;
-        }
-
-        /* Lớp 3: Canvas vẽ sóng lụa uốn lượn & hạt bụi vàng lấp lánh */
-        #hero-canvas {
+        /* Canvas vẽ dàn nhân vật Chibi nằm ở lớp phía sau (z-index: 1) */
+        #hero-chibi-canvas {
             position: absolute;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
+            z-index: 1;
+            pointer-events: none;
+        }
+
+        /* Lớp làm dịu nhẹ vùng giữa (z-index: 2) giúp chữ nổi bật khi Chibi đi ngang phía sau */
+        .hero-readability-mask {
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(ellipse 72% 62% at 50% 48%, rgba(6, 18, 33, 0.55) 0%, rgba(6, 18, 33, 0.12) 78%, transparent 100%);
             z-index: 2;
             pointer-events: none;
         }
 
-        /* Giữ toàn bộ chữ và nút luôn nổi bật sắc nét phía trên nền động */
+        /* Cụm nội dung chữ & nút luôn nằm lớp trên cùng (z-index: 4), không bao giờ bị Chibi đè */
         .hero-content {
             position: relative;
-            z-index: 3;
-        }
-
-        @keyframes heroBgFloat {
-            0% {
-                transform: scale(1) translate(0, 0) rotate(0deg);
-            }
-            50% {
-                transform: scale(1.07) translate(-1.8%, -1.2%) rotate(0.6deg);
-            }
-            100% {
-                transform: scale(1.11) translate(1.8%, 1.2%) rotate(-0.6deg);
-            }
-        }
-
-        @keyframes heroShimmerSweep {
-            0% {
-                background-position: 0% 50%;
-            }
-            50% {
-                background-position: 100% 50%;
-            }
-            100% {
-                background-position: 0% 50%;
-            }
+            z-index: 4;
+            max-width: 960px;
+            margin: 0 auto;
         }
 
         .hero-badge {
             display: inline-block;
-            background: rgba(212, 175, 55, 0.15);
+            background: rgba(9, 24, 41, 0.72);
             border: 1px solid var(--accent-gold);
             color: var(--accent-gold-light);
             padding: 6px 18px;
@@ -419,7 +395,8 @@
             margin-bottom: 18px;
             text-transform: uppercase;
             letter-spacing: 1px;
-            backdrop-filter: blur(4px);
+            backdrop-filter: blur(6px);
+            box-shadow: 0 4px 14px rgba(0, 0, 0, 0.45);
         }
 
         .hero h1 {
@@ -429,16 +406,16 @@
             font-weight: 800;
             line-height: 1.4;
             letter-spacing: 0.5px;
-            text-shadow: 0 2px 10px rgba(0,0,0,0.6);
+            text-shadow: 0 3px 16px rgba(0, 0, 0, 0.95), 0 1px 4px rgba(0, 0, 0, 0.9);
         }
 
         .hero p {
             font-size: 1.05rem;
             max-width: 750px;
             margin: 0 auto 30px;
-            color: #e2e8f0;
-            font-weight: 400;
-            text-shadow: 0 1px 6px rgba(0,0,0,0.5);
+            color: #f1f5f9;
+            font-weight: 500;
+            text-shadow: 0 2px 12px rgba(0, 0, 0, 0.95), 0 1px 3px rgba(0, 0, 0, 0.9);
         }
 
         .cta-btn {
@@ -452,19 +429,20 @@
             letter-spacing: 0.5px;
             transition: var(--transition);
             display: inline-block;
-            box-shadow: 0 4px 15px rgba(212, 175, 55, 0.3);
+            box-shadow: 0 6px 22px rgba(0, 0, 0, 0.5), 0 4px 18px rgba(212, 175, 55, 0.45);
             border: none;
+            position: relative;
+            z-index: 4;
         }
 
         .cta-btn:hover {
             transform: translateY(-3px);
-            box-shadow: 0 8px 25px rgba(212, 175, 55, 0.5);
+            box-shadow: 0 8px 25px rgba(212, 175, 55, 0.65);
             color: var(--primary-dark);
         }
 
         /* Container & Shop Layout */
         .main-container {
-            max-width: 1350px;
             margin: 50px auto;
             padding: 0 20px;
         }
@@ -575,6 +553,13 @@
             display: grid;
             grid-template-columns: repeat(4, 1fr);
             gap: 25px;
+        }
+
+        /* Tự động chuyển lưới sản phẩm thành 5 cột trên màn hình máy tính lớn để tận dụng không gian */
+        @media (min-width: 1400px) {
+            .product-grid {
+                grid-template-columns: repeat(5, 1fr);
+            }
         }
 
         .product-card {
@@ -768,8 +753,6 @@
         }
 
         .features-grid {
-            max-width: 1350px;
-            margin: 0 auto;
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
             gap: 25px;
@@ -805,8 +788,6 @@
         }
 
         .stats-container {
-            max-width: 1350px;
-            margin: 0 auto;
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
             gap: 30px;
@@ -974,8 +955,6 @@
         }
 
         .footer-content {
-            max-width: 1350px;
-            margin: 0 auto;
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
             gap: 30px;
@@ -1010,7 +989,7 @@
         /* TỐI ƯU Cấu hình Responsive (Tablet & Điện thoại) */
         @media (max-width: 1024px) {
             .product-grid {
-                grid-template-columns: repeat(3, 1fr);
+                grid-template-columns: repeat(3, 1fr) !important;
             }
         }
 
@@ -1080,7 +1059,7 @@
             }
 
             .hero {
-                padding: 45px 15px;
+                padding: 68px 15px 115px;
             }
             .hero h1 {
                 font-size: 1.35rem;
@@ -1095,7 +1074,7 @@
             }
 
             .product-grid {
-                grid-template-columns: repeat(2, 1fr);
+                grid-template-columns: repeat(2, 1fr) !important;
                 gap: 12px;
             }
 
@@ -1205,11 +1184,11 @@
         </div>
     </header>
 
-    <!-- Hero Banner với hiệu ứng nền chuyển động mượt mà -->
+    <!-- Hero Banner với hoạt ảnh Chibi cầm cúp chạy phía sau nội dung chữ -->
     <section class="hero">
         <div class="hero-bg-layer"></div>
-        <div class="hero-wave-layer"></div>
-        <canvas id="hero-canvas"></canvas>
+        <canvas id="hero-chibi-canvas"></canvas>
+        <div class="hero-readability-mask"></div>
         
         <div class="hero-content">
             <div class="hero-badge"><i class="fa-solid fa-shield-halved"></i> Chế Tác Trực Tiếp - Giá Tại Xưởng</div>
@@ -1395,9 +1374,9 @@
 
     <!-- JavaScript Data & Logic -->
     <script>
-        /* --- HIỆU ỨNG SÓNG LỤA & BỤI VÀNG CHUYỂN ĐỘNG TRÊN HERO --- */
-        function initHeroAnimation() {
-            const canvas = document.getElementById('hero-canvas');
+        /* --- HOẠT ẢNH NHÂN VẬT CHIBI CẦM CÚP CHẠY PHÍA SAU NỘI DUNG CHỮ TRÊN HERO --- */
+        function initHeroChibiAnimation() {
+            const canvas = document.getElementById('hero-chibi-canvas');
             if (!canvas) return;
             const ctx = canvas.getContext('2d');
             let width, height;
@@ -1411,67 +1390,558 @@
             window.addEventListener('resize', resize);
             resize();
 
-            // Tạo các hạt ánh kim vàng bay nhẹ
-            const particleCount = 38;
-            const particles = Array.from({ length: particleCount }, () => ({
+            // Hạt ánh kim vàng lấp lánh nền nhẹ
+            const sparkles = Array.from({ length: 28 }, () => ({
                 x: Math.random() * width,
                 y: Math.random() * height,
-                radius: Math.random() * 1.8 + 0.6,
-                speedY: -(Math.random() * 0.35 + 0.12),
-                speedX: (Math.random() - 0.5) * 0.3,
-                alpha: Math.random() * 0.65 + 0.15,
-                pulseSpeed: Math.random() * 0.02 + 0.008
+                r: Math.random() * 1.6 + 0.5,
+                vy: -(Math.random() * 0.25 + 0.08),
+                phase: Math.random() * Math.PI * 2
             }));
 
-            // Cấu hình các dải sóng lụa xanh dương & vàng kim
-            const ribbons = [
-                { amp: 48, freq: 0.0022, speed: 0.011, offset: 0, color: 'rgba(212, 175, 55, 0.22)', lineWidth: 2 },
-                { amp: 60, freq: 0.0017, speed: -0.008, offset: 2, color: 'rgba(65, 155, 240, 0.20)', lineWidth: 2.5 },
-                { amp: 35, freq: 0.0028, speed: 0.014, offset: 4, color: 'rgba(251, 245, 183, 0.14)', lineWidth: 1.5 },
-                { amp: 52, freq: 0.0019, speed: 0.009, offset: 1.2, color: 'rgba(35, 115, 195, 0.16)', lineWidth: 1.8 }
+            // Hệ số phóng to thêm 2/3 kích thước cũ (1 + 2/3 = 5/3 ≈ 1.667)
+            const SIZE_MULTIPLIER = 5 / 3;
+
+            // Danh sách 6 nhân vật Chibi (bao gồm nhân vật mặc đồ tốt nghiệp) cầm vật phẩm vinh danh
+            const chibiCast = [
+                {
+                    dir: 1,
+                    speed: 1.55,
+                    scale: 0.92 * SIZE_MULTIPLIER,
+                    phase: 0,
+                    hairColor: '#1e293b',
+                    hairStyle: 'spiky',
+                    outfitStyle: 'suit',
+                    outfitColor: '#1d4ed8',
+                    tieColor: '#d4af37',
+                    skinColor: '#ffdfc4',
+                    blushColor: 'rgba(244, 114, 182, 0.45)',
+                    awardType: 'trophy',
+                    offsetRatio: 0.08
+                },
+                {
+                    dir: -1,
+                    speed: 1.45,
+                    scale: 0.94 * SIZE_MULTIPLIER,
+                    phase: 1.1,
+                    hairColor: '#1e1b4b',
+                    hairStyle: 'grad',
+                    outfitStyle: 'graduation',
+                    outfitColor: '#0f172a',
+                    tieColor: '#fbbf24',
+                    skinColor: '#ffe4cc',
+                    blushColor: 'rgba(251, 113, 133, 0.5)',
+                    awardType: 'crystal',
+                    offsetRatio: 0.28
+                },
+                {
+                    dir: -1,
+                    speed: 1.35,
+                    scale: 0.88 * SIZE_MULTIPLIER,
+                    phase: 1.8,
+                    hairColor: '#451a03',
+                    hairStyle: 'bob',
+                    outfitStyle: 'suit',
+                    outfitColor: '#b91c1c',
+                    tieColor: '#fde047',
+                    skinColor: '#ffe4cc',
+                    blushColor: 'rgba(251, 113, 133, 0.5)',
+                    awardType: 'crystal',
+                    offsetRatio: 0.85
+                },
+                {
+                    dir: 1,
+                    speed: 1.75,
+                    scale: 0.82 * SIZE_MULTIPLIER,
+                    phase: 3.4,
+                    hairColor: '#0f172a',
+                    hairStyle: 'bun',
+                    outfitStyle: 'suit',
+                    outfitColor: '#047857',
+                    tieColor: '#fbbf24',
+                    skinColor: '#ffdfc4',
+                    blushColor: 'rgba(244, 114, 182, 0.45)',
+                    awardType: 'medal',
+                    offsetRatio: 0.45
+                },
+                {
+                    dir: -1,
+                    speed: 1.25,
+                    scale: 0.9 * SIZE_MULTIPLIER,
+                    phase: 5.0,
+                    hairColor: '#78350f',
+                    hairStyle: 'spiky',
+                    outfitStyle: 'suit',
+                    outfitColor: '#4338ca',
+                    tieColor: '#f59e0b',
+                    skinColor: '#ffe4cc',
+                    blushColor: 'rgba(244, 114, 182, 0.45)',
+                    awardType: 'plaque',
+                    offsetRatio: 0.65
+                },
+                {
+                    dir: 1,
+                    speed: 1.4,
+                    scale: 0.85 * SIZE_MULTIPLIER,
+                    phase: 2.5,
+                    hairColor: '#312e81',
+                    hairStyle: 'bob',
+                    outfitStyle: 'suit',
+                    outfitColor: '#be185d',
+                    tieColor: '#fef08a',
+                    skinColor: '#ffdfc4',
+                    blushColor: 'rgba(251, 113, 133, 0.5)',
+                    awardType: 'trophy',
+                    offsetRatio: 0.74
+                }
             ];
+
+            chibiCast.forEach(c => {
+                c.x = width * c.offsetRatio;
+            });
+
+            // Hàm vẽ từng loại Cúp / Kỷ niệm chương / Huy chương / Bảng vinh danh trên tay Chibi
+            function drawAwardItem(ctx, type, t) {
+                ctx.save();
+                const glint = 0.75 + 0.25 * Math.sin(t * 0.12);
+
+                if (type === 'trophy') {
+                    // Cúp vàng vinh danh
+                    const grad = ctx.createLinearGradient(-10, -28, 10, 0);
+                    grad.addColorStop(0, '#fde047');
+                    grad.addColorStop(0.5, '#d4af37');
+                    grad.addColorStop(1, '#92400e');
+
+                    // Đế cúp
+                    ctx.fillStyle = '#1e1b4b';
+                    ctx.fillRect(-7, -5, 14, 5);
+                    ctx.fillStyle = '#fbbf24';
+                    ctx.fillRect(-5, -7, 10, 2);
+
+                    // Thân & quai cúp
+                    ctx.strokeStyle = '#fbbf24';
+                    ctx.lineWidth = 2;
+                    ctx.beginPath();
+                    ctx.arc(-8, -19, 4.5, Math.PI * 0.5, Math.PI * 1.5);
+                    ctx.stroke();
+                    ctx.beginPath();
+                    ctx.arc(8, -19, 4.5, -Math.PI * 0.5, Math.PI * 0.5);
+                    ctx.stroke();
+
+                    // Bầu cúp vàng
+                    ctx.fillStyle = grad;
+                    ctx.beginPath();
+                    ctx.moveTo(-9, -27);
+                    ctx.lineTo(9, -27);
+                    ctx.quadraticCurveTo(8, -14, 2.5, -12);
+                    ctx.lineTo(2.5, -7);
+                    ctx.lineTo(-2.5, -7);
+                    ctx.lineTo(-2.5, -12);
+                    ctx.quadraticCurveTo(-8, -14, -9, -27);
+                    ctx.closePath();
+                    ctx.fill();
+
+                    // Ngôi sao nhỏ trên cúp
+                    ctx.fillStyle = '#fffbeb';
+                    ctx.beginPath();
+                    ctx.arc(0, -20, 2, 0, Math.PI * 2);
+                    ctx.fill();
+                } else if (type === 'crystal') {
+                    // Kỷ niệm chương pha lê xanh ngọc lấp lánh
+                    ctx.fillStyle = '#0f172a';
+                    ctx.fillRect(-7, -5, 14, 5);
+
+                    const cGrad = ctx.createLinearGradient(-9, -29, 9, -5);
+                    cGrad.addColorStop(0, 'rgba(224, 242, 254, 0.95)');
+                    cGrad.addColorStop(0.5, 'rgba(56, 189, 248, 0.85)');
+                    cGrad.addColorStop(1, 'rgba(2, 132, 199, 0.9)');
+
+                    ctx.fillStyle = cGrad;
+                    ctx.strokeStyle = '#ffffff';
+                    ctx.lineWidth = 1.2;
+                    ctx.beginPath();
+                    ctx.moveTo(0, -30);
+                    ctx.lineTo(9, -21);
+                    ctx.lineTo(6, -5);
+                    ctx.lineTo(-6, -5);
+                    ctx.lineTo(-9, -21);
+                    ctx.closePath();
+                    ctx.fill();
+                    ctx.stroke();
+                } else if (type === 'medal') {
+                    // Huy chương vàng dây ruy băng đỏ
+                    ctx.fillStyle = '#dc2626';
+                    ctx.beginPath();
+                    ctx.moveTo(-6, -24);
+                    ctx.lineTo(-2, -13);
+                    ctx.lineTo(2, -13);
+                    ctx.lineTo(-2, -24);
+                    ctx.fill();
+
+                    ctx.beginPath();
+                    ctx.moveTo(6, -24);
+                    ctx.lineTo(2, -13);
+                    ctx.lineTo(-2, -13);
+                    ctx.lineTo(2, -24);
+                    ctx.fill();
+
+                    ctx.fillStyle = '#fbbf24';
+                    ctx.strokeStyle = '#b45309';
+                    ctx.lineWidth = 1.5;
+                    ctx.beginPath();
+                    ctx.arc(0, -9, 7, 0, Math.PI * 2);
+                    ctx.fill();
+                    ctx.stroke();
+                } else if (type === 'plaque') {
+                    // Bảng vinh danh gỗ đồng sang trọng
+                    ctx.fillStyle = '#78350f';
+                    ctx.strokeStyle = '#fbbf24';
+                    ctx.lineWidth = 1.5;
+                    ctx.beginPath();
+                    ctx.roundRect(-9, -26, 18, 22, 3);
+                    ctx.fill();
+                    ctx.stroke();
+
+                    ctx.fillStyle = '#fde68a';
+                    ctx.fillRect(-6, -22, 12, 14);
+                }
+
+                // Tia sáng lấp lánh trên vật phẩm
+                ctx.fillStyle = `rgba(255, 255, 255, ${glint})`;
+                ctx.beginPath();
+                ctx.arc(-3, -23, 1.8, 0, Math.PI * 2);
+                ctx.fill();
+
+                ctx.restore();
+            }
+
+            // Hàm vẽ 1 nhân vật Chibi đang chạy & nâng cao vật phẩm vinh danh
+            function drawChibi(ctx, c, groundY, t) {
+                const runCycle = t * 0.16 + c.phase;
+                const bounce = Math.abs(Math.sin(runCycle)) * 6;
+                const legSwing = Math.sin(runCycle) * 0.65;
+                const bodyTilt = 0.08;
+                const responsiveScale = width < 768 ? c.scale * 0.72 : c.scale;
+
+                ctx.save();
+                ctx.translate(c.x, groundY - bounce * responsiveScale);
+                ctx.scale(c.dir * responsiveScale, responsiveScale);
+
+                // Bóng đổ dưới chân trên mặt sân khấu
+                ctx.save();
+                ctx.translate(0, bounce);
+                ctx.fillStyle = 'rgba(0, 0, 0, 0.35)';
+                ctx.beginPath();
+                ctx.ellipse(0, 0, 15 - bounce * 0.4, 4, 0, 0, Math.PI * 2);
+                ctx.fill();
+                ctx.restore();
+
+                ctx.rotate(bodyTilt);
+
+                // Chân sau
+                ctx.save();
+                ctx.translate(-3, -15);
+                ctx.rotate(-legSwing);
+                ctx.fillStyle = '#0f172a';
+                ctx.beginPath();
+                ctx.roundRect(-3.5, 0, 7, 13, 3.5);
+                ctx.fill();
+                ctx.fillStyle = '#ffffff';
+                ctx.beginPath();
+                ctx.ellipse(1, 13, 5, 3, 0, 0, Math.PI * 2);
+                ctx.fill();
+                ctx.restore();
+
+                // Chân trước
+                ctx.save();
+                ctx.translate(3, -15);
+                ctx.rotate(legSwing);
+                ctx.fillStyle = '#1e293b';
+                ctx.beginPath();
+                ctx.roundRect(-3.5, 0, 7, 13, 3.5);
+                ctx.fill();
+                ctx.fillStyle = '#ffffff';
+                ctx.beginPath();
+                ctx.ellipse(1, 13, 5, 3, 0, 0, Math.PI * 2);
+                ctx.fill();
+                ctx.restore();
+
+                // Trang phục thân trên (Lễ phục tốt nghiệp hoặc Áo vest sự kiện)
+                if (c.outfitStyle === 'graduation') {
+                    // Áo choàng tốt nghiệp cử nhân dáng xòe nhẹ
+                    ctx.fillStyle = '#0f172a';
+                    ctx.strokeStyle = '#334155';
+                    ctx.lineWidth = 1;
+                    ctx.beginPath();
+                    ctx.moveTo(-9, -34);
+                    ctx.lineTo(9, -34);
+                    ctx.lineTo(13, -11);
+                    ctx.lineTo(-13, -11);
+                    ctx.closePath();
+                    ctx.fill();
+                    ctx.stroke();
+
+                    // Khăn choàng tốt nghiệp viền vàng kim sang trọng
+                    ctx.fillStyle = '#d4af37';
+                    ctx.beginPath();
+                    ctx.moveTo(-8, -34);
+                    ctx.lineTo(8, -34);
+                    ctx.lineTo(5, -20);
+                    ctx.lineTo(0, -25);
+                    ctx.lineTo(-5, -20);
+                    ctx.closePath();
+                    ctx.fill();
+
+                    // Viền đỏ nổi bật trên khăn choàng cử nhân
+                    ctx.fillStyle = '#b91c1c';
+                    ctx.beginPath();
+                    ctx.moveTo(-5, -34);
+                    ctx.lineTo(5, -34);
+                    ctx.lineTo(3, -23);
+                    ctx.lineTo(0, -26);
+                    ctx.lineTo(-3, -23);
+                    ctx.closePath();
+                    ctx.fill();
+                } else {
+                    // Thân áo vest sự kiện / công sở dễ thương
+                    ctx.fillStyle = c.outfitColor;
+                    ctx.beginPath();
+                    ctx.roundRect(-11, -34, 22, 21, 7);
+                    ctx.fill();
+
+                    // Áo sơ mi trắng & cà vạt vàng kim
+                    ctx.fillStyle = '#ffffff';
+                    ctx.beginPath();
+                    ctx.moveTo(-4, -34);
+                    ctx.lineTo(4, -34);
+                    ctx.lineTo(0, -23);
+                    ctx.closePath();
+                    ctx.fill();
+
+                    ctx.fillStyle = c.tieColor;
+                    ctx.beginPath();
+                    ctx.moveTo(0, -33);
+                    ctx.lineTo(2, -26);
+                    ctx.lineTo(0, -22);
+                    ctx.lineTo(-2, -26);
+                    ctx.closePath();
+                    ctx.fill();
+                }
+
+                // Tay sau đánh nhịp khi chạy
+                ctx.save();
+                ctx.translate(-9, -30);
+                ctx.rotate(legSwing * 0.7 + 0.3);
+                ctx.fillStyle = c.outfitStyle === 'graduation' ? '#0f172a' : c.outfitColor;
+                ctx.beginPath();
+                ctx.roundRect(-3, 0, 6, 11, 3);
+                ctx.fill();
+                ctx.fillStyle = c.skinColor;
+                ctx.beginPath();
+                ctx.arc(0, 11, 3.2, 0, Math.PI * 2);
+                ctx.fill();
+                ctx.restore();
+
+                // Đầu Chibi tròn to dễ thương
+                ctx.save();
+                ctx.translate(0, -49);
+                ctx.rotate(Math.sin(runCycle * 0.5) * 0.05);
+
+                // Khuôn mặt
+                ctx.fillStyle = c.skinColor;
+                ctx.beginPath();
+                ctx.arc(0, 0, 16.5, 0, Math.PI * 2);
+                ctx.fill();
+
+                // Má hồng
+                ctx.fillStyle = c.blushColor;
+                ctx.beginPath();
+                ctx.ellipse(8.5, 4.5, 3.5, 2, 0, 0, Math.PI * 2);
+                ctx.fill();
+                ctx.beginPath();
+                ctx.ellipse(-4.5, 4.5, 3, 1.8, 0, 0, Math.PI * 2);
+                ctx.fill();
+
+                // Mắt tròn long lanh vui vẻ
+                ctx.fillStyle = '#0f172a';
+                ctx.beginPath();
+                ctx.arc(7.5, -0.5, 2.3, 0, Math.PI * 2);
+                ctx.arc(-2.5, -0.5, 2.3, 0, Math.PI * 2);
+                ctx.fill();
+
+                ctx.fillStyle = '#ffffff';
+                ctx.beginPath();
+                ctx.arc(8.2, -1.3, 0.9, 0, Math.PI * 2);
+                ctx.arc(-1.8, -1.3, 0.9, 0, Math.PI * 2);
+                ctx.fill();
+
+                // Nụ cười tươi rạng rỡ
+                ctx.strokeStyle = '#9a3412';
+                ctx.lineWidth = 1.6;
+                ctx.beginPath();
+                ctx.arc(3, 3.5, 3.5, 0.15 * Math.PI, 0.85 * Math.PI);
+                ctx.stroke();
+
+                // Kiểu tóc Chibi đa dạng & Mũ tốt nghiệp
+                ctx.fillStyle = c.hairColor;
+                if (c.hairStyle === 'spiky') {
+                    ctx.beginPath();
+                    ctx.arc(0, -2, 17, Math.PI * 0.9, Math.PI * 2.1);
+                    ctx.lineTo(13, -8);
+                    ctx.lineTo(7, -14);
+                    ctx.lineTo(2, -9);
+                    ctx.lineTo(-4, -15);
+                    ctx.lineTo(-9, -8);
+                    ctx.closePath();
+                    ctx.fill();
+                } else if (c.hairStyle === 'bob') {
+                    ctx.beginPath();
+                    ctx.arc(0, -1, 17.5, Math.PI * 0.82, Math.PI * 2.18);
+                    ctx.lineTo(15, 7);
+                    ctx.lineTo(11, 2);
+                    ctx.lineTo(8, -7);
+                    ctx.lineTo(-6, -7);
+                    ctx.lineTo(-14, 7);
+                    ctx.closePath();
+                    ctx.fill();
+                } else if (c.hairStyle === 'grad') {
+                    // Tóc mái gọn gàng dưới mũ cử nhân
+                    ctx.beginPath();
+                    ctx.arc(0, -1, 17.2, Math.PI * 0.86, Math.PI * 2.14);
+                    ctx.lineTo(13, 3);
+                    ctx.lineTo(9, -6);
+                    ctx.lineTo(2, -4);
+                    ctx.lineTo(-6, -6);
+                    ctx.lineTo(-13, 3);
+                    ctx.closePath();
+                    ctx.fill();
+
+                    // Mũ tốt nghiệp (Mortarboard) đặc trưng
+                    ctx.save();
+                    ctx.translate(0, -15);
+                    ctx.rotate(-0.08);
+
+                    // Chóp ôm đầu mũ cử nhân
+                    ctx.fillStyle = '#0f172a';
+                    ctx.beginPath();
+                    ctx.roundRect(-11, -3, 22, 8, 2);
+                    ctx.fill();
+
+                    // Mặt phẳng vuông mũ tốt nghiệp
+                    ctx.fillStyle = '#1e293b';
+                    ctx.strokeStyle = '#d4af37';
+                    ctx.lineWidth = 1;
+                    ctx.beginPath();
+                    ctx.moveTo(0, -11);
+                    ctx.lineTo(19, -4);
+                    ctx.lineTo(0, 2);
+                    ctx.lineTo(-19, -4);
+                    ctx.closePath();
+                    ctx.fill();
+                    ctx.stroke();
+
+                    // Nút vàng trên đỉnh & dây tua rua vàng đung đưa theo nhịp chạy
+                    const tasselSwing = Math.sin(runCycle) * 2.5;
+                    ctx.fillStyle = '#fbbf24';
+                    ctx.beginPath();
+                    ctx.arc(0, -4.5, 2, 0, Math.PI * 2);
+                    ctx.fill();
+
+                    ctx.strokeStyle = '#fbbf24';
+                    ctx.lineWidth = 1.6;
+                    ctx.beginPath();
+                    ctx.moveTo(0, -4.5);
+                    ctx.lineTo(-14, -1.5);
+                    ctx.lineTo(-15 + tasselSwing, 8);
+                    ctx.stroke();
+
+                    ctx.fillStyle = '#fde047';
+                    ctx.beginPath();
+                    ctx.arc(-15 + tasselSwing, 8.5, 2.2, 0, Math.PI * 2);
+                    ctx.fill();
+                    ctx.restore();
+                } else {
+                    ctx.beginPath();
+                    ctx.arc(-12, -14, 6.5, 0, Math.PI * 2);
+                    ctx.fill();
+                    ctx.beginPath();
+                    ctx.arc(0, -2, 17, Math.PI * 0.88, Math.PI * 2.12);
+                    ctx.lineTo(10, -7);
+                    ctx.lineTo(-8, -7);
+                    ctx.closePath();
+                    ctx.fill();
+                }
+
+                ctx.restore();
+
+                // Tay trước giơ cao cầm Cúp / Kỷ niệm chương / Huy chương
+                ctx.save();
+                ctx.translate(8, -30);
+                const armWave = Math.sin(runCycle) * 0.12 - 0.55;
+                ctx.rotate(armWave);
+
+                ctx.fillStyle = c.outfitStyle === 'graduation' ? '#0f172a' : c.outfitColor;
+                ctx.beginPath();
+                ctx.roundRect(-2.5, -11, 5.5, 12, 3);
+                ctx.fill();
+
+                ctx.fillStyle = c.skinColor;
+                ctx.beginPath();
+                ctx.arc(0, -12, 3.4, 0, Math.PI * 2);
+                ctx.fill();
+
+                // Đặt vật phẩm vinh danh ngay trên bàn tay
+                ctx.translate(1, -13);
+                ctx.rotate(-armWave - bodyTilt);
+                drawAwardItem(ctx, c.awardType, t + c.phase * 10);
+
+                ctx.restore();
+                ctx.restore();
+            }
 
             function animate() {
                 ctx.clearRect(0, 0, width, height);
                 time += 1;
 
-                // Vẽ các dải sóng lụa uốn lượn
-                ribbons.forEach((ribbon, idx) => {
-                    ctx.beginPath();
-                    const baseY = height * (0.28 + idx * 0.15);
-                    for (let x = 0; x <= width; x += 10) {
-                        const y = baseY 
-                            + Math.sin(x * ribbon.freq + time * ribbon.speed + ribbon.offset) * ribbon.amp
-                            + Math.cos(x * ribbon.freq * 0.6 - time * ribbon.speed * 0.8) * (ribbon.amp * 0.45);
-                        if (x === 0) ctx.moveTo(x, y);
-                        else ctx.lineTo(x, y);
+                const groundY = height - 16;
+
+                // Vẽ các hạt ánh kim vàng lấp lánh nhẹ trên nền
+                sparkles.forEach(s => {
+                    s.y += s.vy;
+                    if (s.y < 0) {
+                        s.y = height;
+                        s.x = Math.random() * width;
                     }
-                    ctx.strokeStyle = ribbon.color;
-                    ctx.lineWidth = ribbon.lineWidth;
-                    ctx.stroke();
+                    const a = 0.25 + 0.45 * Math.abs(Math.sin(time * 0.03 + s.phase));
+                    ctx.fillStyle = `rgba(251, 232, 145, ${a})`;
+                    ctx.beginPath();
+                    ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2);
+                    ctx.fill();
                 });
 
-                // Vẽ và di chuyển các hạt bụi vàng
-                particles.forEach(p => {
-                    p.x += p.speedX + Math.sin(time * 0.01 + p.y * 0.01) * 0.18;
-                    p.y += p.speedY;
+                // Vẽ đường sàn sân khấu ánh vàng kim mảnh ở chân banner
+                const floorGrad = ctx.createLinearGradient(0, groundY, width, groundY);
+                floorGrad.addColorStop(0, 'rgba(212, 175, 55, 0.05)');
+                floorGrad.addColorStop(0.5, 'rgba(212, 175, 55, 0.45)');
+                floorGrad.addColorStop(1, 'rgba(212, 175, 55, 0.05)');
+                ctx.strokeStyle = floorGrad;
+                ctx.lineWidth = 1.5;
+                ctx.beginPath();
+                ctx.moveTo(0, groundY);
+                ctx.lineTo(width, groundY);
+                ctx.stroke();
 
-                    if (p.y < -10) {
-                        p.y = height + 10;
-                        p.x = Math.random() * width;
+                // Cập nhật vị trí và vẽ dàn Chibi chạy qua chạy lại
+                chibiCast.forEach(c => {
+                    c.x += c.dir * c.speed;
+
+                    if (c.dir === 1 && c.x > width - 48) {
+                        c.dir = -1;
+                    } else if (c.dir === -1 && c.x < 48) {
+                        c.dir = 1;
                     }
-                    if (p.x < -10) p.x = width + 10;
-                    if (p.x > width + 10) p.x = -10;
 
-                    const currentAlpha = p.alpha * (0.65 + 0.35 * Math.sin(time * p.pulseSpeed));
-
-                    ctx.beginPath();
-                    ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
-                    ctx.fillStyle = `rgba(251, 232, 145, ${currentAlpha})`;
-                    ctx.shadowBlur = 8;
-                    ctx.shadowColor = 'rgba(212, 175, 55, 0.8)';
-                    ctx.fill();
-                    ctx.shadowBlur = 0;
+                    drawChibi(ctx, c, groundY, time);
                 });
 
                 requestAnimationFrame(animate);
@@ -1492,7 +1962,7 @@
         }
 
         document.addEventListener("DOMContentLoaded", () => {
-            initHeroAnimation();
+            initHeroChibiAnimation();
 
             if (sessionStorage.getItem('doorOpened') === 'true') {
                 const overlay = document.getElementById('door-overlay');
@@ -1694,7 +2164,6 @@
                     'Công nghệ: In UV / Khắc Laser'
                 ]
             },
-
             {
                 stt: 53,
                 id: 53,
@@ -1775,7 +2244,6 @@
                     'Công nghệ: Khắc Laser / In UV sắc nét'
                 ]
             },
-
             {
                 stt: 160,
                 id: 160,
@@ -1815,7 +2283,6 @@
                     'Công nghệ: In UV cao cấp'
                 ]
             },
-
             {
                 stt: 180,
                 id: 180,
