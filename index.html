@@ -135,7 +135,7 @@
             letter-spacing: 1px;
             text-transform: uppercase;
             font-weight: 800;
-            white-space: nowrap; /* Bắt buộc nằm trên 1 hàng */
+            white-space: nowrap;
         }
 
         .welcome-content p {
@@ -322,15 +322,89 @@
             color: #b38728;
         }
 
-        /* Hero Banner */
+        /* --- HERO BANNER VỚI HIỆU ỨNG NỀN CHUYỂN ĐỘNG NHƯ GIF ĐỘNG --- */
         .hero {
-            background: radial-gradient(circle at center, rgba(13, 35, 58, 0.10) 0%, rgba(9, 24, 41, 0.96) 100%), url('images/anh nen.jpg') center/cover no-repeat;
+            background-color: #061322;
             color: var(--white);
             text-align: center;
             padding: 80px 20px;
             position: relative;
+            overflow: hidden;
             border-bottom: 3px solid transparent;
             border-image: var(--gold-gradient) 1;
+        }
+
+        /* Lớp 1: Ảnh nền xanh navy tự động bồng bềnh & phóng to thu nhỏ mượt mà */
+        .hero-bg-layer {
+            position: absolute;
+            inset: -12%;
+            background: 
+                radial-gradient(circle at 30% 40%, rgba(25, 78, 132, 0.45) 0%, transparent 55%),
+                radial-gradient(circle at 75% 65%, rgba(212, 175, 55, 0.16) 0%, transparent 50%),
+                radial-gradient(circle at center, rgba(13, 35, 58, 0.25) 0%, rgba(6, 17, 30, 0.95) 100%),
+                url('images/anh nen.jpg') center/cover no-repeat;
+            animation: heroBgFloat 14s ease-in-out infinite alternate;
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        /* Lớp 2: Dải ánh kim xanh – vàng quét ngang liên tục */
+        .hero-wave-layer {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(
+                115deg,
+                transparent 20%,
+                rgba(45, 125, 205, 0.14) 45%,
+                rgba(212, 175, 55, 0.12) 50%,
+                rgba(45, 125, 205, 0.14) 55%,
+                transparent 80%
+            );
+            background-size: 250% 250%;
+            animation: heroShimmerSweep 8s ease-in-out infinite;
+            z-index: 1;
+            pointer-events: none;
+        }
+
+        /* Lớp 3: Canvas vẽ sóng lụa uốn lượn & hạt bụi vàng lấp lánh */
+        #hero-canvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 2;
+            pointer-events: none;
+        }
+
+        /* Giữ toàn bộ chữ và nút luôn nổi bật sắc nét phía trên nền động */
+        .hero-content {
+            position: relative;
+            z-index: 3;
+        }
+
+        @keyframes heroBgFloat {
+            0% {
+                transform: scale(1) translate(0, 0) rotate(0deg);
+            }
+            50% {
+                transform: scale(1.07) translate(-1.8%, -1.2%) rotate(0.6deg);
+            }
+            100% {
+                transform: scale(1.11) translate(1.8%, 1.2%) rotate(-0.6deg);
+            }
+        }
+
+        @keyframes heroShimmerSweep {
+            0% {
+                background-position: 0% 50%;
+            }
+            50% {
+                background-position: 100% 50%;
+            }
+            100% {
+                background-position: 0% 50%;
+            }
         }
 
         .hero-badge {
@@ -345,6 +419,7 @@
             margin-bottom: 18px;
             text-transform: uppercase;
             letter-spacing: 1px;
+            backdrop-filter: blur(4px);
         }
 
         .hero h1 {
@@ -354,7 +429,7 @@
             font-weight: 800;
             line-height: 1.4;
             letter-spacing: 0.5px;
-            text-shadow: 0 2px 10px rgba(0,0,0,0.5);
+            text-shadow: 0 2px 10px rgba(0,0,0,0.6);
         }
 
         .hero p {
@@ -363,6 +438,7 @@
             margin: 0 auto 30px;
             color: #e2e8f0;
             font-weight: 400;
+            text-shadow: 0 1px 6px rgba(0,0,0,0.5);
         }
 
         .cta-btn {
@@ -1129,12 +1205,18 @@
         </div>
     </header>
 
-    <!-- Hero Banner -->
+    <!-- Hero Banner với hiệu ứng nền chuyển động mượt mà -->
     <section class="hero">
-        <div class="hero-badge"><i class="fa-solid fa-shield-halved"></i> Chế Tác Trực Tiếp - Giá Tại Xưởng</div>
-        <h1>SẢN XUẤT KỶ NIỆM CHƯƠNG, BẢNG VINH DANH & HUY CHƯƠNG CAO CẤP</h1>
-        <p>Giải pháp vinh danh, quà tặng đối tác chuyên nghiệp. Thiết kế tinh xảo, giao hàng toàn quốc.</p>
-        <a href="#products" class="cta-btn"><i class="fa-solid fa-eye"></i> XEM MẪU SẢN PHẨM</a>
+        <div class="hero-bg-layer"></div>
+        <div class="hero-wave-layer"></div>
+        <canvas id="hero-canvas"></canvas>
+        
+        <div class="hero-content">
+            <div class="hero-badge"><i class="fa-solid fa-shield-halved"></i> Chế Tác Trực Tiếp - Giá Tại Xưởng</div>
+            <h1>SẢN XUẤT KỶ NIỆM CHƯƠNG, BẢNG VINH DANH & HUY CHƯƠNG CAO CẤP</h1>
+            <p>Giải pháp vinh danh, quà tặng đối tác chuyên nghiệp. Thiết kế tinh xảo, giao hàng toàn quốc.</p>
+            <a href="#products" class="cta-btn"><i class="fa-solid fa-eye"></i> XEM MẪU SẢN PHẨM</a>
+        </div>
     </section>
 
     <!-- Main Shop Section -->
@@ -1313,6 +1395,91 @@
 
     <!-- JavaScript Data & Logic -->
     <script>
+        /* --- HIỆU ỨNG SÓNG LỤA & BỤI VÀNG CHUYỂN ĐỘNG TRÊN HERO --- */
+        function initHeroAnimation() {
+            const canvas = document.getElementById('hero-canvas');
+            if (!canvas) return;
+            const ctx = canvas.getContext('2d');
+            let width, height;
+            let time = 0;
+
+            function resize() {
+                const hero = canvas.parentElement;
+                width = canvas.width = hero.offsetWidth;
+                height = canvas.height = hero.offsetHeight;
+            }
+            window.addEventListener('resize', resize);
+            resize();
+
+            // Tạo các hạt ánh kim vàng bay nhẹ
+            const particleCount = 38;
+            const particles = Array.from({ length: particleCount }, () => ({
+                x: Math.random() * width,
+                y: Math.random() * height,
+                radius: Math.random() * 1.8 + 0.6,
+                speedY: -(Math.random() * 0.35 + 0.12),
+                speedX: (Math.random() - 0.5) * 0.3,
+                alpha: Math.random() * 0.65 + 0.15,
+                pulseSpeed: Math.random() * 0.02 + 0.008
+            }));
+
+            // Cấu hình các dải sóng lụa xanh dương & vàng kim
+            const ribbons = [
+                { amp: 48, freq: 0.0022, speed: 0.011, offset: 0, color: 'rgba(212, 175, 55, 0.22)', lineWidth: 2 },
+                { amp: 60, freq: 0.0017, speed: -0.008, offset: 2, color: 'rgba(65, 155, 240, 0.20)', lineWidth: 2.5 },
+                { amp: 35, freq: 0.0028, speed: 0.014, offset: 4, color: 'rgba(251, 245, 183, 0.14)', lineWidth: 1.5 },
+                { amp: 52, freq: 0.0019, speed: 0.009, offset: 1.2, color: 'rgba(35, 115, 195, 0.16)', lineWidth: 1.8 }
+            ];
+
+            function animate() {
+                ctx.clearRect(0, 0, width, height);
+                time += 1;
+
+                // Vẽ các dải sóng lụa uốn lượn
+                ribbons.forEach((ribbon, idx) => {
+                    ctx.beginPath();
+                    const baseY = height * (0.28 + idx * 0.15);
+                    for (let x = 0; x <= width; x += 10) {
+                        const y = baseY 
+                            + Math.sin(x * ribbon.freq + time * ribbon.speed + ribbon.offset) * ribbon.amp
+                            + Math.cos(x * ribbon.freq * 0.6 - time * ribbon.speed * 0.8) * (ribbon.amp * 0.45);
+                        if (x === 0) ctx.moveTo(x, y);
+                        else ctx.lineTo(x, y);
+                    }
+                    ctx.strokeStyle = ribbon.color;
+                    ctx.lineWidth = ribbon.lineWidth;
+                    ctx.stroke();
+                });
+
+                // Vẽ và di chuyển các hạt bụi vàng
+                particles.forEach(p => {
+                    p.x += p.speedX + Math.sin(time * 0.01 + p.y * 0.01) * 0.18;
+                    p.y += p.speedY;
+
+                    if (p.y < -10) {
+                        p.y = height + 10;
+                        p.x = Math.random() * width;
+                    }
+                    if (p.x < -10) p.x = width + 10;
+                    if (p.x > width + 10) p.x = -10;
+
+                    const currentAlpha = p.alpha * (0.65 + 0.35 * Math.sin(time * p.pulseSpeed));
+
+                    ctx.beginPath();
+                    ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
+                    ctx.fillStyle = `rgba(251, 232, 145, ${currentAlpha})`;
+                    ctx.shadowBlur = 8;
+                    ctx.shadowColor = 'rgba(212, 175, 55, 0.8)';
+                    ctx.fill();
+                    ctx.shadowBlur = 0;
+                });
+
+                requestAnimationFrame(animate);
+            }
+
+            animate();
+        }
+
         function openDoor() {
             const overlay = document.getElementById('door-overlay');
             if (overlay && !overlay.classList.contains('open')) {
@@ -1325,6 +1492,8 @@
         }
 
         document.addEventListener("DOMContentLoaded", () => {
+            initHeroAnimation();
+
             if (sessionStorage.getItem('doorOpened') === 'true') {
                 const overlay = document.getElementById('door-overlay');
                 if (overlay) {
